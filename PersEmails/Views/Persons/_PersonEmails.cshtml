@@ -1,0 +1,18 @@
+﻿@using PersEmails.Application.Emails;
+@model PersonDataViewModel
+
+@Model.Person.Id
+<table>
+@foreach (var item in Model.Emails)
+{
+    <tr>
+        <td>@Html.DisplayFor(i => item.EmailAddress) </td>
+        <td> <a asp-controller="Emails" asp-action="Delete" asp-route-id="@item.Id">Delete</a> </td>
+    </tr>
+}
+</table>
+
+<br/>
+<div style="width:100px; background-color:lightgray; text-align:center">
+    <a asp-controller="Emails" asp-action="Add" asp-route-personId="@Model.Person.Id">Add email</a>
+</div>

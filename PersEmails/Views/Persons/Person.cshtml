@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Person's data";
+}
+@model PersonDataViewModel
+
+<h2>@Html.DisplayFor(model => model.Person.Name) @Html.DisplayFor(model => model.Person.Surname) data:</h2>
+
+<dl>
+    <dt>@Html.DisplayNameFor(model => model.Person.Name)</dt>
+    <dd> @Html.DisplayFor(model => model.Person.Name)</dd>
+
+    <dt>@Html.DisplayNameFor(model => model.Person.Surname)</dt>
+    <dd> @Html.DisplayFor(model => model.Person.Surname)</dd>
+
+    <dt>@Html.DisplayNameFor(model => model.Person.Description)</dt>
+    <dd> @Html.DisplayFor(model => model.Person.Description)</dd>
+</dl>
+
+<h2>@Html.DisplayFor(model => model.Person.Name) @Html.DisplayFor(model => model.Person.Surname) emails:</h2>
+
+<partial name="_PersonEmails.cshtml" model="@Model" />

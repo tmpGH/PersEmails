@@ -1,0 +1,31 @@
+﻿@using PersEmails.Application.Emails;
+@{
+    ViewData["Title"] = "List of emails";
+}
+@model EmailWithNamesListDto
+
+<h2>All emails</h2>
+
+<p>Under construction</p>
+
+<table>
+    <tr>
+        <th> email </th>
+        <th> /&nbsp;name </th>
+        <th> /&nbsp;surname </th>
+
+        <th> </th>
+    </tr>
+
+    @foreach (var item in Model.Emails)
+    {
+        <tr>
+            <td> @Html.DisplayFor(i => item.EmailAddress) </td>
+            <td> @Html.DisplayFor(i => item.Name) </td>
+            <td> @Html.DisplayFor(i => item.Surname) </td>
+
+            <td> <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> </td>
+        </tr>
+    }
+
+</table>
