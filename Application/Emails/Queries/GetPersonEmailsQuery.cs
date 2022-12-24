@@ -1,7 +1,6 @@
 ﻿using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using PersEmails.Application.Emails;
 
 namespace PersEmails.Application.Emails.Queries
 {

@@ -18,7 +18,7 @@ namespace PersEmails.Controllers
 
         public async Task<IActionResult> Person(int id)
         {
-            var person = await QueryService.ExecuteAsync(new GetPersonQuery(id));
+            var person = QueryService.Execute(new GetPersonQuery(id));
             var emails = await QueryService.ExecuteAsync(new GetPersonEmailsQuery(id));
             var viewModel = new PersonDataViewModel
             {
@@ -42,9 +42,9 @@ namespace PersEmails.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var person = await QueryService.ExecuteAsync(new GetPersonQuery(id));
+            var person = QueryService.Execute(new GetPersonQuery(id));
             return View(person);
         }
 

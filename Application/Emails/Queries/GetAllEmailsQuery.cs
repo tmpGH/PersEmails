@@ -1,21 +1,19 @@
 ﻿using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using PersEmails.Application.Emails;
 
 namespace PersEmails.Application.Emails.Queries
 {
-    public class GetAllEmailsQuery : IQueryAsync<EmailWithNamesListDto>
+    public class GetAllEmailsQuery : IQuery<EmailWithNamesListDto>
     {
-        public async Task<EmailWithNamesListDto> ExecuteAsync(IAppContext context)
+        public EmailWithNamesListDto Execute(IAppContext context)
         {
-            var emails = await (
+            var emails = (
                 from e in context.Emails
                 from p in context.Persons
                 where e.PersonId == p.Id
                 orderby e.EmailAddress
                 select Map(e, p)
-            ).ToListAsync();
+            ).ToList();
 
             return new EmailWithNamesListDto(emails);
         }

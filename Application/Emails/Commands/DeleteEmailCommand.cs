@@ -2,7 +2,7 @@
 
 namespace PersEmails.Application.Emails.Commands
 {
-    public class DeleteEmailCommand : ICommandAsync
+    public class DeleteEmailCommand : ICommand
     {
         private int emailId;
 
@@ -11,9 +11,9 @@ namespace PersEmails.Application.Emails.Commands
             this.emailId = emailId;
         }
 
-        public async Task<int> ExecuteAsync(IAppContext context)
+        public int Execute(IAppContext context)
         {
-            var entity = await context.Emails.FindAsync(emailId);
+            var entity = context.Emails.Find(emailId);
 
             context.Emails.Remove(entity);
             

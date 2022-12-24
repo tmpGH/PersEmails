@@ -8,16 +8,16 @@ namespace PersEmails.Controllers
 {
     public class EmailsController : BaseController
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var emails = await QueryService.ExecuteAsync(new GetAllEmailsQuery());
+            var emails = QueryService.Execute(new GetAllEmailsQuery());
 
             return View(emails);
         }
 
-        public async Task<IActionResult> Add(int personId)
+        public IActionResult Add(int personId)
         {
-            var person = await QueryService.ExecuteAsync(new GetPersonQuery(personId));
+            var person = QueryService.Execute(new GetPersonQuery(personId));
             if(person != null)
             {
                 return View(person);
@@ -40,9 +40,9 @@ namespace PersEmails.Controllers
             return RedirectToAction("Error");
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var result = await CommandService.ExecuteAsync(new DeleteEmailCommand(id));
+            var result = CommandService.Execute(new DeleteEmailCommand(id));
             if(result == 1)
             {
                 return Redirect(Request.Headers["Referer"].ToString());

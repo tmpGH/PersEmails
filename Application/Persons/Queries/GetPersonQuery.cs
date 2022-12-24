@@ -1,11 +1,10 @@
 ﻿using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace PersEmails.Application.Persons.Queries
 {
-    public class GetPersonQuery : IQueryAsync<PersonDto>
+    public class GetPersonQuery : IQuery<PersonDto>
     {
         private int personId;
 
@@ -14,13 +13,13 @@ namespace PersEmails.Application.Persons.Queries
             this.personId = personId;
         }
 
-        public async Task<PersonDto> ExecuteAsync(IAppContext context)
+        public PersonDto Execute(IAppContext context)
         {
-            var person = await (
+            var person = (
                 from p in context.Persons
                 where p.Id == personId
                 select Map(p)
-            ).FirstOrDefaultAsync();
+            ).FirstOrDefault();
 
             return person;
         }
