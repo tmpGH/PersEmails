@@ -4,11 +4,20 @@
 }
 @model PersonDto
 
+
 <h2>Add new email for @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
 
-<p>Under construction</p>
+<form asp-controller="Emails" method="post">
 
-<form method="post">
+    <input type="hidden" value="@Model.Id" name="PersonId" /><br/>
+
+    <label for="EmailAddress">Enter your email address:</label>
+    <br />
+    <input type="email" value="" name="EmailAddress" size="50" maxlength="50" />
+    <br />
+    <br />
+
+    <button type="submit" formaction="SaveEmail"> Save email </button>
+    <button type="button" onclick="history.back()"> Cancel </button>
 
 </form>
-

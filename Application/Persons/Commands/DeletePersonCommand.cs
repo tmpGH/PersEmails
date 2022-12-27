@@ -11,10 +11,13 @@ namespace PersEmails.Application.Persons.Commands
             this.personId = personId;
         }
 
-        public async Task<int> ExecuteAsync(IAppContext context)
+        public async Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var entity = await context.Persons.FindAsync(personId);
-            foreach(var email in entity.Emails)
+            if (entity == null)
+                return 0;
+
+            foreach (var email in entity.Emails)
             {
                 context.Emails.Remove(email);
             }

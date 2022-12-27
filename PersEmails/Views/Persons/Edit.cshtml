@@ -6,8 +6,24 @@
 
 <h2>Edit details of @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
 
-<p>Under construction</p>
+<form asp-controller="Persons" asp-action="SavePerson" method="post">
+    
+    <label for="Name">Name:</label>
+    <br />
+    <input type="text" value="@Model.Name" name="Name" size="50" maxlength="50" />
+    <br />
+    <label for="Surname">Surname:</label>
+    <br />
+    <input type="text" value="@Model.Surname" name="Surname" size="50" maxlength="50" />
+    <br />
+    <label for="Description">Description:</label>
+    <br />
+    <textarea type="text" name="Description" cols="50" rows="10">@Model.Description</textarea>
+    <br />
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <br />
 
-<form method="post">
+    <button type="submit"> Save person </button>
+    <button type="button" onclick="history.back()"> Cancel </button>
 
 </form>

@@ -2,6 +2,6 @@
 {
     public interface ICommandAsync
     {
-        Task<int> ExecuteAsync(IAppContext context);
+        Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken);
     }
 }

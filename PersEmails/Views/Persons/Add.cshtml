@@ -4,7 +4,23 @@
 
 <h2>Add new person</h2>
 
-<p>Under construction</p>
+<form asp-controller="Persons" asp-action="SavePerson" method="post">
 
-<form method="post">
+    <label for="Name">Name:</label>
+    <br />
+    <input type="text" value="" name="Name" size="50" maxlength="50" />
+    <br />
+    <label for="Surname">Surname:</label>
+    <br />
+    <input type="text" value="" name="Surname" size="50" maxlength="50" />
+    <br />
+    <label for="Description">Description:</label>
+    <br />
+    <textarea type="text" name="Description" cols="50" rows="10"></textarea>
+    <br />
+    <br />
+
+    <button type="submit"> Save person </button>
+    <button type="button" onclick="history.back()"> Cancel </button>
+
 </form>

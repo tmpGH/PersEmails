@@ -3,11 +3,13 @@ using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Emails.Commands;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.Application.Emails;
+using PersEmails.ViewModels;
 
 namespace PersEmails.Controllers
 {
     public class EmailsController : BaseController
     {
+        [HttpGet]
         public IActionResult Index()
         {
             var emails = QueryService.Execute(new GetAllEmailsQuery());
@@ -15,6 +17,7 @@ namespace PersEmails.Controllers
             return View(emails);
         }
 
+        [HttpGet]
         public IActionResult Add(int personId)
         {
             var person = QueryService.Execute(new GetPersonQuery(personId));
@@ -23,23 +26,30 @@ namespace PersEmails.Controllers
                 return View(person);
             }
 
-            // TODO: obsluzyc errora
-            return RedirectToAction("Error");
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Person not found."
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEmail(EmailDto email)
+        public async Task<IActionResult> SaveEmail(EmailDto email)
         {
-            var result = await CommandService.ExecuteAsync(new AddEmailCommand(email));
+            var result = await CommandService.ExecuteAsync(new AddEmailToPersonCommand(email));
             if (result == 1)
             {
-                return Redirect(Request.Headers["Referer"].ToString());
+                return RedirectToAction("Person", "Persons", new { id = email.PersonId });
             }
 
-            // TODO: obsluzyc errora
-            return RedirectToAction("Error");
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Email saving failed."
+            });
         }
 
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             var result = CommandService.Execute(new DeleteEmailCommand(id));
@@ -48,8 +58,11 @@ namespace PersEmails.Controllers
                 return Redirect(Request.Headers["Referer"].ToString());
             }
 
-            // TODO: obsluzyc errora
-            return RedirectToAction("Error");
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Email deletion failed."
+            });
         }
     }
 }

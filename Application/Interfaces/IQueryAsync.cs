@@ -2,6 +2,6 @@
 {
     public interface IQueryAsync<TResult>
     {
-        Task<TResult> ExecuteAsync(IAppContext context);
+        Task<TResult> ExecuteAsync(IAppContext context, CancellationToken cancellationToken);
     }
 }

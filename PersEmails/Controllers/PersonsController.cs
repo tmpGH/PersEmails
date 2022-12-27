@@ -2,13 +2,15 @@
 using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
-using PersEmails.Models;
+using PersEmails.ViewModels;
 using PersEmails.Application.Persons;
+using Application.Persons.Commands;
 
 namespace PersEmails.Controllers
 {
     public class PersonsController : BaseController
     {
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var persons = await QueryService.ExecuteAsync(new GetPersonsQuery());
@@ -16,6 +18,7 @@ namespace PersEmails.Controllers
             return View(persons);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Person(int id)
         {
             var person = QueryService.Execute(new GetPersonQuery(id));
@@ -23,32 +26,55 @@ namespace PersEmails.Controllers
             var viewModel = new PersonDataViewModel
             {
                 Person = person,
-                Emails = emails.Emails
+                Emails = emails
             };
 
             return View(viewModel);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddPerson(PersonDto person)
+        public async Task<IActionResult> SavePerson(PersonDto person)
         {
-            // TODO: AddPersonCommand
+            int result = person.Id == 0
+                ? await Task<int>.Run(() => CommandService.Execute(new AddPersonCommand(person)))
+                : await CommandService.ExecuteAsync(new SavePersonCommand(person));
 
-            return View();
+            if (result > 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Person saving failed."
+            });
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var person = QueryService.Execute(new GetPersonQuery(id));
-            return View(person);
+            if(person != null)
+            {
+                return View(person);
+            }
+
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Person not found."
+            });
         }
 
-        public async Task<RedirectToActionResult> Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await CommandService.ExecuteAsync(new DeletePersonCommand(id));
 
@@ -57,8 +83,11 @@ namespace PersEmails.Controllers
                 return RedirectToAction("Index");
             }
 
-            // TODO: obsluzyc errora
-            return RedirectToAction("Error");
+            return View("Error", new ErrorViewModel
+            {
+                RequestId = HttpContext.TraceIdentifier,
+                Error = "Person deletion failed."
+            });
         }
     }
 }

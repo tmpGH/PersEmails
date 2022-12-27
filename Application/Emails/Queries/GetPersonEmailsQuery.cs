@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PersEmails.Application.Emails.Queries
 {
-    public class GetPersonEmailsQuery : IQueryAsync<PersonEmailListDto>
+    public class GetPersonEmailsQuery : IQueryAsync<IList<EmailDto>>
     {
         private int personId;
 
@@ -13,26 +13,25 @@ namespace PersEmails.Application.Emails.Queries
             this.personId = personId;
         }
 
-        public async Task<PersonEmailListDto> ExecuteAsync(IAppContext context)
+        public async Task<IList<EmailDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var emails = await (
                 from e in context.Emails
                 where e.PersonId == personId
-                select Map(e)
+                select MapToDto(e)
             ).ToListAsync();
 
-            return new PersonEmailListDto(emails);
+            return emails;
         }
 
-        private static EmailDto Map(Email e)
+        private static EmailDto MapToDto(Email email)
         {
             return new EmailDto
             {
-                Id = e.Id,
-                EmailAddress = e.EmailAddress,
-                PersonId = e.PersonId
+                Id = email.Id,
+                EmailAddress = email.EmailAddress,
+                PersonId = email.PersonId
             };
         }
-
     }
 }

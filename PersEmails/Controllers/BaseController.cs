@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersEmails.Infrastructure.Interfaces;
-using PersEmails.Models;
-using System.Diagnostics;
 
 namespace PersEmails.Controllers
 {
@@ -12,12 +10,5 @@ namespace PersEmails.Controllers
 
         private ICommandService _commandService;
         protected ICommandService CommandService => _commandService ??= HttpContext.RequestServices.GetService<ICommandService>();
-
-        
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

@@ -8,8 +8,6 @@ namespace PersEmails.Infrastructure
 {
     public static class DependencyInjection
     {
-        
-
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddDbContext<PersEmailsContext>();
@@ -21,6 +19,5 @@ namespace PersEmails.Infrastructure
 
             return services;
         }
-
     }
 }

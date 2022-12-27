@@ -3,29 +3,29 @@ using PersEmails.Domain.Entities;
 
 namespace PersEmails.Application.Emails.Queries
 {
-    public class GetAllEmailsQuery : IQuery<EmailWithNamesListDto>
+    public class GetAllEmailsQuery : IQuery<IList<EmailWithNamesDto>>
     {
-        public EmailWithNamesListDto Execute(IAppContext context)
+        public IList<EmailWithNamesDto> Execute(IAppContext context)
         {
             var emails = (
                 from e in context.Emails
                 from p in context.Persons
                 where e.PersonId == p.Id
                 orderby e.EmailAddress
-                select Map(e, p)
+                select MapToDto(e, p)
             ).ToList();
 
-            return new EmailWithNamesListDto(emails);
+            return emails;
         }
 
-        private static EmailWithNamesDto Map(Email e, Person p)
+        private static EmailWithNamesDto MapToDto(Email email, Person person)
         {
             return new EmailWithNamesDto
             {
-                Id = e.Id,
-                EmailAddress = e.EmailAddress,
-                Name = p?.Name,
-                Surname = p?.Surname
+                Id = email.Id,
+                EmailAddress = email.EmailAddress,
+                Name = person?.Name,
+                Surname = person?.Surname
             };
         }
     }

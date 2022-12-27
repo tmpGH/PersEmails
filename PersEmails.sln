@@ -5,11 +5,19 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersEmails", "PersEmails\PersEmails.csproj", "{01B1B1F7-7050-4088-9EB8-CA5F8FD845BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{097DE987-DA26-4322-9DBA-B33C3C78C4AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{097DE987-DA26-4322-9DBA-B33C3C78C4AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{0718F6CB-6C4E-4E3B-B832-06F805BA5A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{0718F6CB-6C4E-4E3B-B832-06F805BA5A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AA9329E9-FC4C-4B56-A0C2-FC2907F5FDE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AA9329E9-FC4C-4B56-A0C2-FC2907F5FDE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{A6390E1A-0F3A-424D-9DE7-CE41D8CBE8D9}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\PersEmails.bak = Assets\PersEmails.bak
+		Assets\todo.txt = Assets\todo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A06A0881-EAF5-4323-8D8A-C477D2FE0303}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

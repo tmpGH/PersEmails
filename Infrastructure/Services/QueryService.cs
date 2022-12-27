@@ -22,7 +22,7 @@ namespace PersEmails.Infrastructure.Services
         public Task<TResult> ExecuteAsync<TResult>(IQueryAsync<TResult> query, CancellationToken cancellationToken = default)
         {
             var dbContext = serviceProvider.GetService<IAppContext>();
-            return query.ExecuteAsync(dbContext);
+            return query.ExecuteAsync(dbContext, cancellationToken);
         }
     }
 }
