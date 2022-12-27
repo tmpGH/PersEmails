@@ -23,7 +23,11 @@ namespace PersEmails.Controllers
             var person = QueryService.Execute(new GetPersonQuery(personId));
             if(person != null)
             {
-                return View(person);
+
+                return View( new EmailDataViewModel {
+                        Email = new EmailDto { PersonId = person.Id },
+                        Person = person
+                });
             }
 
             return View("Error", new ErrorViewModel

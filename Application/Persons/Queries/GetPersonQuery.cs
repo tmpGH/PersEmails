@@ -18,20 +18,20 @@ namespace PersEmails.Application.Persons.Queries
             var person = (
                 from p in context.Persons
                 where p.Id == personId
-                select Map(p)
+                select MapToDto(p)
             ).FirstOrDefault();
 
             return person;
         }
 
-        private static PersonDto Map(Person p)
+        private static PersonDto MapToDto(Person person)
         {
             return new PersonDto
             {
-                Id = p.Id,
-                Name = p.Name,
-                Surname = p.Surname,
-                Description = p.Description
+                Id = person.Id,
+                Name = person.Name,
+                Surname = person.Surname,
+                Description = person.Description
             };
         }
     }

@@ -1,19 +1,21 @@
-﻿@using PersEmails.Application.Persons
+﻿@using PersEmails.Application.Emails
 @{
     ViewData["Title"] = "Add email";
 }
-@model PersonDto
+@model EmailDataViewModel
 
 
-<h2>Add new email for @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
+<h2>Add new email for @Html.DisplayFor(model => model.Person.Name) @Html.DisplayFor(model => model.Person.Surname)</h2>
 
 <form asp-controller="Emails" method="post">
 
-    <input type="hidden" value="@Model.Id" name="PersonId" /><br/>
+    <input type="hidden" asp-for="Email.PersonId" /><br />
 
-    <label for="EmailAddress">Enter your email address:</label>
+    <label asp-for="Email.EmailAddress">Enter your email address:</label>
     <br />
-    <input type="email" value="" name="EmailAddress" size="50" maxlength="50" />
+    <span asp-validation-for="Email.EmailAddress" style="color: red;"></span>
+    <br />
+    <input type="email" asp-for="Email.EmailAddress" size="50" maxlength="50" />
     <br />
     <br />
 
@@ -21,3 +23,7 @@
     <button type="button" onclick="history.back()"> Cancel </button>
 
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

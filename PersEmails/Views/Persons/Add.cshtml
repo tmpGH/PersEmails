@@ -1,22 +1,30 @@
-﻿@{
+﻿@using PersEmails.Application.Persons
+@{
     ViewData["Title"] = "Add person";
 }
+@model EditPersonViewModel
 
 <h2>Add new person</h2>
 
 <form asp-controller="Persons" asp-action="SavePerson" method="post">
 
-    <label for="Name">Name:</label>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <label asp-for="Name">Name:</label>
     <br />
-    <input type="text" value="" name="Name" size="50" maxlength="50" />
+    <span asp-validation-for="Name" style="color: red;"></span>
     <br />
-    <label for="Surname">Surname:</label>
+    <input type="text" asp-for="Name" size="50" maxlength="50" />
     <br />
-    <input type="text" value="" name="Surname" size="50" maxlength="50" />
+    <label asp-for="Surname">Surname:</label>
     <br />
-    <label for="Description">Description:</label>
+    <span asp-validation-for="Surname" style="color: red;"></span>
     <br />
-    <textarea type="text" name="Description" cols="50" rows="10"></textarea>
+    <input type="text" asp-for="Surname" size="50" maxlength="50" />
+    <br />
+    <label asp-for="Description">Description:</label>
+    <br />
+    <textarea asp-for="Description" cols="50" rows="10"></textarea>
     <br />
     <br />
 
@@ -24,3 +32,7 @@
     <button type="button" onclick="history.back()"> Cancel </button>
 
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

@@ -2,28 +2,36 @@
 @{
     ViewData["Title"] = "Edit perrson data";
 }
-@model PersonDto
+@model EditPersonViewModel
 
 <h2>Edit details of @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
 
 <form asp-controller="Persons" asp-action="SavePerson" method="post">
     
-    <label for="Name">Name:</label>
+    <label asp-for="Name">Name:</label>
     <br />
-    <input type="text" value="@Model.Name" name="Name" size="50" maxlength="50" />
+    <span asp-validation-for="Name" style="color: red;"></span>
     <br />
-    <label for="Surname">Surname:</label>
+    <input type="text" asp-for="Name" size="50" maxlength="50" />
     <br />
-    <input type="text" value="@Model.Surname" name="Surname" size="50" maxlength="50" />
+    <label asp-for="Surname">Surname:</label>
     <br />
-    <label for="Description">Description:</label>
+    <span asp-validation-for="Surname" style="color: red;"></span>
     <br />
-    <textarea type="text" name="Description" cols="50" rows="10">@Model.Description</textarea>
+    <input type="text" asp-for="Surname" size="50" maxlength="50" />
     <br />
-    <input type="hidden" value="@Model.Id" name="Id" />
+    <label asp-for="Description">Description:</label>
+    <br />
+    <textarea asp-for="Description" cols="50" rows="10"></textarea>
+    <br />
+    <input type="hidden" asp-for="Id" />
     <br />
 
     <button type="submit"> Save person </button>
     <button type="button" onclick="history.back()"> Cancel </button>
 
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

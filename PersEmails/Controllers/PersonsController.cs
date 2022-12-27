@@ -35,7 +35,7 @@ namespace PersEmails.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            return View(new EditPersonViewModel());
         }
 
         [HttpPost]
@@ -63,7 +63,12 @@ namespace PersEmails.Controllers
             var person = QueryService.Execute(new GetPersonQuery(id));
             if(person != null)
             {
-                return View(person);
+                return View(new EditPersonViewModel {
+                    Id = person.Id,
+                    Name = person.Name,
+                    Surname = person.Surname,
+                    Description = person.Description
+                });
             }
 
             return View("Error", new ErrorViewModel

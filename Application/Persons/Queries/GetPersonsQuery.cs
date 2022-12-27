@@ -15,21 +15,21 @@ namespace PersEmails.Application.Persons.Queries
                                         .Take(1)
                                         .DefaultIfEmpty()
                 orderby p.Surname, p.Name
-                select Map(p, e)
+                select MapToDto(p, e.EmailAddress)
             ).ToListAsync();
 
             return persons;
         }
 
-        private static PersonDto Map(Person p, Email e)
+        private static PersonDto MapToDto(Person person, string emailAddress)
         {
             return new PersonDto
             {
-                Id = p.Id,
-                Name = p.Name,
-                Surname = p.Surname,
-                Description = p.Description,
-                EmailAddress = e?.EmailAddress
+                Id = person.Id,
+                Name = person.Name,
+                Surname = person.Surname,
+                Description = person.Description,
+                EmailAddress = emailAddress
             };
         }
     }

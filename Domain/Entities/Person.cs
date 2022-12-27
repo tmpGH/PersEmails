@@ -16,7 +16,7 @@ namespace PersEmails.Domain.Entities
         [MaxLength(50)]
         [Required]
         public string Surname { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public List<Email> Emails { get; private set; }
     }
