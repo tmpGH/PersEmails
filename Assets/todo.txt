@@ -1,5 +1,3 @@
-walidacja
-
 przenieść connection string
 
 paginacja na widokach z listą osób i listą emaili

@@ -15,9 +15,8 @@ namespace Application.Persons.Commands
 
         public int Execute(IAppContext context)
         {
-            if (person == null)
+            if (!IsPersonValid())
                 return 0;
-            // TODO: walidacja pol w PersonDto
 
             context.Persons.Add(MapToEntity(person));
 
@@ -32,6 +31,22 @@ namespace Application.Persons.Commands
                 Surname = person.Surname,
                 Description = person.Description
             };
+        }
+
+        private bool IsPersonValid()
+        {
+            if (person == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(person.Name))
+                return false;
+            if (string.IsNullOrWhiteSpace(person.Surname))
+                return false;
+            if (person.Name.Length > 50)
+                return false;
+            if (person.Surname.Length > 50)
+                return false;
+
+            return true;
         }
     }
 }

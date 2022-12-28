@@ -15,10 +15,14 @@ namespace Application.Persons.Commands
 
         public async Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
+            if (person == null)
+                return 0;
             var entity = await context.Persons.FindAsync(person.Id);
             if (entity == null)
                 return 0;
-            // TODO: walidacja pol w PersonDto
+
+            if (!IsPersonValid())
+                return 0;
 
             MapToEntity(person, entity);
 
@@ -30,6 +34,22 @@ namespace Application.Persons.Commands
             entity.Name = dto.Name;
             entity.Surname = dto.Surname;
             entity.Description = dto.Description;
-        } 
+        }
+
+        private bool IsPersonValid()
+        {
+            if (person == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(person.Name))
+                return false;
+            if (string.IsNullOrWhiteSpace(person.Surname))
+                return false;
+            if (person.Name.Length > 50)
+                return false;
+            if (person.Surname.Length > 50)
+                return false;
+
+            return true;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
+using System.Net.Mail;
 
 namespace PersEmails.Application.Emails.Commands
 {
@@ -14,9 +15,8 @@ namespace PersEmails.Application.Emails.Commands
 
         public async Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
-            if (email == null)
+            if(!IsEmailAddressValid())
                 return 0;
-            // TODO: walidacja pola EmailAddress
 
             var person = await context.Persons.FindAsync(email.PersonId);
             if (person == null)
@@ -34,6 +34,26 @@ namespace PersEmails.Application.Emails.Commands
                 EmailAddress = email.EmailAddress,
                 Person = person
             };
+        }
+
+        private bool IsEmailAddressValid()
+        {
+            if (email == null)
+                return false;
+            
+            email.EmailAddress = email.EmailAddress.Trim();
+            if (string.IsNullOrWhiteSpace(email.EmailAddress) == null)
+                return false;
+
+            try
+            {
+                MailAddress mail = new MailAddress(email.EmailAddress);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
