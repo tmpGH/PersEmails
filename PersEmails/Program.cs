@@ -7,7 +7,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddInfrastructure();
+        builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication();
 
         // Add services to the container.

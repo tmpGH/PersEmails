@@ -6,6 +6,6 @@ namespace PersEmails.ViewModels
     public class EmailDataViewModel
     {
         public EmailDto Email { get; set; }
-        public PersonDto Person { get; set; }
+        public PersonWithEmailAddressDto Person { get; set; }
     }
 }

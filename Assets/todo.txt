@@ -1,4 +1,4 @@
-przenieść connection string
+zapisy do logów
 
 paginacja na widokach z listą osób i listą emaili
 

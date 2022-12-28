@@ -1,8 +1,7 @@
 ﻿using PersEmails.Application.Interfaces;
-using PersEmails.Application.Persons;
 using PersEmails.Domain.Entities;
 
-namespace Application.Persons.Commands
+namespace PersEmails.Application.Persons.Commands
 {
     public class SavePersonCommand : ICommandAsync
     {

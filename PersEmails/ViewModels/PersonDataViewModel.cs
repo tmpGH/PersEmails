@@ -5,7 +5,7 @@ namespace PersEmails.ViewModels
 {
     public class PersonDataViewModel
     {
-        public PersonDto Person { get; set; }
+        public PersonWithEmailAddressDto Person { get; set; }
         public IList<EmailDto> Emails { get; set; }
     }
 }

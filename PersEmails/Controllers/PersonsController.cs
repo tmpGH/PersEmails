@@ -3,8 +3,6 @@ using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.ViewModels;
-using PersEmails.Application.Persons;
-using Application.Persons.Commands;
 
 namespace PersEmails.Controllers
 {

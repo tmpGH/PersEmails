@@ -9,6 +9,6 @@ namespace PersEmails.ViewModels
         public string Name { get; set; }
         [StringLength(50)]
         public string Surname { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

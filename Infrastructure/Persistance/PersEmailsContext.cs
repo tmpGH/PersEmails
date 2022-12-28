@@ -6,16 +6,15 @@ namespace PersEmails.Infrastructure.Persistance
 {
     public class PersEmailsContext : DbContext, IAppContext
     {
-        // TODO: move to the Settings
-        private string connectionString = @"Data Source=PC\SQLEXPRESS;Initial Catalog=PersEmails;Integrated Security=True";
-
         public DbSet<Person> Persons { get; set; }
         public DbSet<Email> Emails { get; set; }
 
+        public PersEmailsContext(DbContextOptions<PersEmailsContext> options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(connectionString);
-            //options.EnableSensitiveDataLogging();
+            // string connectionString = @"Data Source=PC\SQLEXPRESS;Initial Catalog=PersEmails;Integrated Security=True";
+            // options.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

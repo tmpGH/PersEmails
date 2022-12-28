@@ -5,9 +5,9 @@ using System.Data;
 
 namespace PersEmails.Application.Persons.Queries
 {
-    public class GetPersonsQuery : IQueryAsync<IList<PersonDto>>
+    public class GetPersonsQuery : IQueryAsync<IList<PersonWithEmailAddressDto>>
     {
-        public async Task<IList<PersonDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
+        public async Task<IList<PersonWithEmailAddressDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var persons = await (
                 from p in context.Persons
@@ -21,9 +21,9 @@ namespace PersEmails.Application.Persons.Queries
             return persons;
         }
 
-        private static PersonDto MapToDto(Person person, string emailAddress)
+        private static PersonWithEmailAddressDto MapToDto(Person person, string emailAddress)
         {
-            return new PersonDto
+            return new PersonWithEmailAddressDto
             {
                 Id = person.Id,
                 Name = person.Name,
