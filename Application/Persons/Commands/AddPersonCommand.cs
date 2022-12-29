@@ -1,23 +1,23 @@
-﻿using PersEmails.Application.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
 
 namespace PersEmails.Application.Persons.Commands
 {
     public class AddPersonCommand : ICommand
     {
-        private PersonDto person;
+        private readonly ILogger<AddPersonCommand> logger;
 
-        public AddPersonCommand(PersonDto person)
-        {
-            this.person = person;
-        }
+        public PersonDto Person { get; set; }
+
+        public AddPersonCommand(ILogger<AddPersonCommand> logger) => this.logger = logger;
 
         public int Execute(IAppContext context)
         {
             if (!IsPersonValid())
                 return 0;
 
-            context.Persons.Add(MapToEntity(person));
+            context.Persons.Add(MapToEntity(Person));
 
             return context.SaveChanges();
         }
@@ -34,16 +34,31 @@ namespace PersEmails.Application.Persons.Commands
 
         private bool IsPersonValid()
         {
-            if (person == null)
+            if (Person == null)
+            {
+                logger.Log(LogLevel.Error, "Empty object: Person");
                 return false;
-            if (string.IsNullOrWhiteSpace(person.Name))
+            }
+            if (string.IsNullOrWhiteSpace(Person.Name))
+            {
+                logger.Log(LogLevel.Error, "Empty field: Name");
                 return false;
-            if (string.IsNullOrWhiteSpace(person.Surname))
+            }
+            if (string.IsNullOrWhiteSpace(Person.Surname))
+            {
+                logger.Log(LogLevel.Error, "Empty field: Surname");
                 return false;
-            if (person.Name.Length > 50)
+            }
+            if (Person.Name.Length > 50)
+            {
+                logger.Log(LogLevel.Error, "Too long field: Name");
                 return false;
-            if (person.Surname.Length > 50)
+            }
+            if (Person.Surname.Length > 50)
+            {
+                logger.Log(LogLevel.Error, "Too long field: Surname");
                 return false;
+            }
 
             return true;
         }

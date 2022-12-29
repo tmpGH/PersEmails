@@ -3,6 +3,7 @@ using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.ViewModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PersEmails.Controllers
 {
@@ -39,20 +40,26 @@ namespace PersEmails.Controllers
         [HttpPost]
         public async Task<IActionResult> SavePerson(PersonDto person)
         {
-            int result = person.Id == 0
-                ? await Task<int>.Run(() => CommandService.Execute(new AddPersonCommand(person)))
-                : await CommandService.ExecuteAsync(new SavePersonCommand(person));
+            int result = 0;
+            if (person.Id == 0)
+            {
+                var command = CommandService.GetCommand<AddPersonCommand>();
+                command.Person = person;
+                result = CommandService.Execute(command);
+            }
+            else
+            {
+                var command = CommandService.GetAsyncCommand<SavePersonCommand>();
+                command.Person = person;
+                result = await CommandService.ExecuteAsync(command);
+            }
 
             if (result > 0)
             {
                 return RedirectToAction("Index");
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Person saving failed."
-            });
+            return Error("Person saving failed.");
         }
 
         [HttpGet]
@@ -69,11 +76,7 @@ namespace PersEmails.Controllers
                 });
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Person not found."
-            });
+            return Error("Person not found.");
         }
 
         [HttpGet]
@@ -86,11 +89,7 @@ namespace PersEmails.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Person deletion failed."
-            });
+            return Error("Person deletion failed.");
         }
     }
 }

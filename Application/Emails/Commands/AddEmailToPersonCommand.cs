@@ -1,4 +1,5 @@
-﻿using PersEmails.Application.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using PersEmails.Application.Interfaces;
 using PersEmails.Domain.Entities;
 using System.Net.Mail;
 
@@ -6,23 +7,25 @@ namespace PersEmails.Application.Emails.Commands
 {
     public class AddEmailToPersonCommand : ICommandAsync
     {
-        private EmailDto email;
+        private readonly ILogger<AddEmailToPersonCommand> logger;
 
-        public AddEmailToPersonCommand(EmailDto email)
-        {
-            this.email = email;
-        }
+        public EmailDto Email { get; set; }
+
+        public AddEmailToPersonCommand(ILogger<AddEmailToPersonCommand> logger) => this.logger = logger;
 
         public async Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             if(!IsEmailAddressValid())
                 return 0;
 
-            var person = await context.Persons.FindAsync(email.PersonId);
+            var person = await context.Persons.FindAsync(Email.PersonId);
             if (person == null)
+            {
+                logger.Log(LogLevel.Error, $"Person with id {Email.PersonId} not found");
                 return 0;
+            }
 
-            context.Emails.Add(MapToEntity(email, person));
+            context.Emails.Add(MapToEntity(Email, person));
 
             return context.SaveChanges();
         }
@@ -38,20 +41,27 @@ namespace PersEmails.Application.Emails.Commands
 
         private bool IsEmailAddressValid()
         {
-            if (email == null)
+            if( Email == null)
+            {
+                logger.Log(LogLevel.Error, "Empty object: Email");
                 return false;
-            
-            email.EmailAddress = email.EmailAddress.Trim();
-            if (string.IsNullOrWhiteSpace(email.EmailAddress) == null)
+            }
+
+            Email.EmailAddress = Email.EmailAddress.Trim();
+            if (string.IsNullOrWhiteSpace(Email.EmailAddress))
+            {
+                logger.Log(LogLevel.Error, "Empty field: EmailAddress");
                 return false;
+            }
 
             try
             {
-                MailAddress mail = new MailAddress(email.EmailAddress);
+                MailAddress mail = new MailAddress(Email.EmailAddress);
                 return true;
             }
             catch (Exception ex)
             {
+                logger.Log(LogLevel.Error, "Wrong email address");
                 return false;
             }
         }

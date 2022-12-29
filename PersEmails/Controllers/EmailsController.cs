@@ -4,6 +4,7 @@ using PersEmails.Application.Emails.Commands;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.Application.Emails;
 using PersEmails.ViewModels;
+using PersEmails.Domain.Entities;
 
 namespace PersEmails.Controllers
 {
@@ -23,34 +24,27 @@ namespace PersEmails.Controllers
             var person = QueryService.Execute(new GetPersonQuery(personId));
             if(person != null)
             {
-
                 return View( new EmailDataViewModel {
                         Email = new EmailDto { PersonId = person.Id },
                         Person = person
                 });
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Person not found."
-            });
+            return Error("Person not found.");
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveEmail(EmailDto email)
         {
-            var result = await CommandService.ExecuteAsync(new AddEmailToPersonCommand(email));
+            var command = CommandService.GetAsyncCommand<AddEmailToPersonCommand>();
+            command.Email = email;
+            var result = await CommandService.ExecuteAsync(command);
             if (result == 1)
             {
                 return RedirectToAction("Person", "Persons", new { id = email.PersonId });
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Email saving failed."
-            });
+            return Error("Email saving failed.");
         }
 
         [HttpGet]
@@ -62,11 +56,7 @@ namespace PersEmails.Controllers
                 return Redirect(Request.Headers["Referer"].ToString());
             }
 
-            return View("Error", new ErrorViewModel
-            {
-                RequestId = HttpContext.TraceIdentifier,
-                Error = "Email deletion failed."
-            });
+            return Error("Email deletion failed.");
         }
     }
 }

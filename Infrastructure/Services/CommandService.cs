@@ -13,6 +13,16 @@ namespace PersEmails.Infrastructure.Services
             this.serviceProvider = serviceProvider;
         }
 
+        public TCommand GetCommand<TCommand>() where TCommand : ICommand
+        {
+            return serviceProvider.GetService<TCommand>();
+        }
+
+        public TCommand GetAsyncCommand<TCommand>() where TCommand : ICommandAsync
+        {
+            return serviceProvider.GetService<TCommand>();
+        }
+
         public int Execute(ICommand command)
         {
             var dbContext = serviceProvider.GetService<IAppContext>();
