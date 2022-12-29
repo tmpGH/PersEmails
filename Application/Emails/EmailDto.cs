@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PersEmails.Application.Emails
+﻿namespace PersEmails.Application.Emails
 {
     public class EmailDto
     {

@@ -4,7 +4,7 @@ using System.Net.Mail;
 
 namespace PersEmails.Application.Emails.Commands
 {
-    public class AddEmailToPersonCommandValidator
+    public class AddEmailToPersonCommandValidator : IValidator<AddEmailToPersonCommand>
     {
         private readonly IAppContext context;
         private readonly ILogger<AddEmailToPersonCommandValidator> logger;
@@ -15,7 +15,7 @@ namespace PersEmails.Application.Emails.Commands
             this.logger = logger;
         }
 
-        public async Task<bool> IsValid(AddEmailToPersonCommand command)
+        public bool IsValid(AddEmailToPersonCommand command)
         {
             command.EmailAddress = command.EmailAddress.Trim();
             if (string.IsNullOrWhiteSpace(command.EmailAddress))
@@ -34,7 +34,7 @@ namespace PersEmails.Application.Emails.Commands
                 return false;
             }
 
-            var person = await context.Persons.FindAsync(command.PersonId);
+            var person = context.Persons.Find(command.PersonId);
             if (person == null)
             {
                 logger.Log(LogLevel.Error, $"Person with id {command.PersonId} not found");

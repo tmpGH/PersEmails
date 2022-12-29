@@ -13,16 +13,25 @@ namespace PersEmails.Infrastructure.Services
             this.serviceProvider = serviceProvider;
         }
 
-        public int Execute(ICommand command)
+        public int Execute<TCommand>(TCommand command) where TCommand : ICommand
         {
+            var validator = serviceProvider.GetService<IValidator<TCommand>>();
+            if (validator != null && !validator.IsValid(command))
+                return 0;
+            
             var dbContext = serviceProvider.GetService<IAppContext>();
             return command.Execute(dbContext);
         }
 
-        public Task<int> ExecuteAsync(ICommandAsync command, CancellationToken cancellationToken = default)
+        public async Task<int> ExecuteAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
+            where TCommand : ICommandAsync
         {
+            var validator = serviceProvider.GetService<IValidatorAsync<TCommand>>();
+            if (validator != null && !(await validator.IsValid(command)))
+                return 0;
+
             var dbContext = serviceProvider.GetService<IAppContext>();
-            return command.ExecuteAsync(dbContext, cancellationToken);
+            return await command.ExecuteAsync(dbContext, cancellationToken);
         }
     }
 }

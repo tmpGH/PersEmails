@@ -3,7 +3,7 @@ using PersEmails.Application.Interfaces;
 
 namespace PersEmails.Application.Persons.Commands
 {
-    public class SavePersonCommandValidator
+    public class SavePersonCommandValidator : IValidatorAsync<SavePersonCommand>
     {
         private readonly IAppContext context;
         private readonly ILogger<SavePersonCommandValidator> logger;
@@ -14,7 +14,7 @@ namespace PersEmails.Application.Persons.Commands
             this.logger = logger;
         }
 
-        private async Task<bool> IsValid(SavePersonCommand command)
+        public async Task<bool> IsValid(SavePersonCommand command)
         {
             if (string.IsNullOrWhiteSpace(command.Name))
             {

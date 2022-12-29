@@ -4,7 +4,7 @@ namespace PersEmails.Infrastructure.Interfaces
 {
     public interface ICommandService
     {
-        int Execute(ICommand command);
-        Task<int> ExecuteAsync(ICommandAsync command, CancellationToken cancellationToken = default);
+        int Execute<TCommand>(TCommand command) where TCommand : ICommand;
+        Task<int> ExecuteAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : ICommandAsync;
     }
 }

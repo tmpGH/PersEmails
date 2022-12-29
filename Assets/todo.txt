@@ -1,5 +1,3 @@
-dodac walidacje do CommandService
-
 strona błędu dla wersji produkcyjnej
 
 unit testy

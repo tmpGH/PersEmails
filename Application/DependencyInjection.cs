@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PersEmails.Application.Emails.Commands;
+using PersEmails.Application.Interfaces;
 using PersEmails.Application.Persons.Commands;
 
 namespace PersEmails.Application
@@ -23,9 +24,9 @@ namespace PersEmails.Application
 
         private static void AddValidators(IServiceCollection services)
         {
-            services.AddScoped<AddEmailToPersonCommandValidator>();
-            services.AddScoped<AddPersonCommandValidator>();
-            services.AddScoped<SavePersonCommandValidator>();
+            services.AddScoped<IValidator<AddEmailToPersonCommand>, AddEmailToPersonCommandValidator>();
+            services.AddScoped<IValidator<AddPersonCommand>, AddPersonCommandValidator>();
+            services.AddScoped<IValidatorAsync<SavePersonCommand>, SavePersonCommandValidator>();
         }
     }
 }

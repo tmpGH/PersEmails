@@ -1,15 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
+using PersEmails.Application.Interfaces;
 
 namespace PersEmails.Application.Persons.Commands
 {
-    public class AddPersonCommandValidator
+    public class AddPersonCommandValidator : IValidator<AddPersonCommand>
     {
         private readonly ILogger<AddPersonCommandValidator> logger;
 
         public AddPersonCommandValidator(ILogger<AddPersonCommandValidator> logger)
             => this.logger = logger;
 
-        private bool IsValid(AddPersonCommand command)
+        public bool IsValid(AddPersonCommand command)
         {
             if (string.IsNullOrWhiteSpace(command.Name))
             {
