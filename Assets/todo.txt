@@ -2,9 +2,9 @@ strona błędu dla wersji produkcyjnej
 
 wydzielić walidatory encji
 
-paginacja na widokach z listą osób i listą emaili
-
 unit testy
 
 -----
+paginacja na widokach z listą osób i listą emaili
+
 stylowanie widoków

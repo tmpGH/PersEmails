@@ -1,8 +1,8 @@
 ﻿@using PersEmails.Application.Emails;
-@model PersonDataViewModel
+@model IList<EmailDto>
 
 <table>
-@foreach (var item in Model.Emails)
+@foreach (var item in Model)
 {
     <tr>
         <td>@Html.DisplayFor(i => item.EmailAddress) </td>
@@ -10,8 +10,3 @@
     </tr>
 }
 </table>
-
-<br/>
-<div style="width:100px; background-color:lightgray; text-align:center">
-    <a asp-controller="Emails" asp-action="Add" asp-route-personId="@Model.Person.Id">Add email</a>
-</div>

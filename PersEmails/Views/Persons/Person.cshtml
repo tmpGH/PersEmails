@@ -18,4 +18,9 @@
 
 <h2>@Html.DisplayFor(model => model.Person.Name) @Html.DisplayFor(model => model.Person.Surname) emails:</h2>
 
-<partial name="_PersonEmails.cshtml" model="@Model" />
+<partial name="_PersonEmails.cshtml" model="@Model.Emails" />
+
+<br />
+<div style="width:100px; background-color:lightgray; text-align:center">
+    <a asp-controller="Emails" asp-action="Add" asp-route-personId="@Model.Person.Id">Add email</a>
+</div>

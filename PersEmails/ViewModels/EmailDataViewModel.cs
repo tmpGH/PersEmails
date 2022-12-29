@@ -1,11 +1,11 @@
 ﻿using PersEmails.Application.Emails;
-using PersEmails.Application.Persons;
 
 namespace PersEmails.ViewModels
 {
     public class EmailDataViewModel
     {
         public EmailDto Email { get; set; }
-        public PersonWithEmailAddressDto Person { get; set; }
+        public string PersonName { get; set; }
+        public string PersonSurname { get; set; }
     }
 }

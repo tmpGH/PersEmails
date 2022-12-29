@@ -3,7 +3,7 @@ using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.ViewModels;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using PersEmails.Application.Persons;
 
 namespace PersEmails.Controllers
 {
@@ -20,12 +20,10 @@ namespace PersEmails.Controllers
         [HttpGet]
         public async Task<IActionResult> Person(int id)
         {
-            var person = QueryService.Execute(new GetPersonQuery(id));
-            var emails = await QueryService.ExecuteAsync(new GetPersonEmailsQuery(id));
             var viewModel = new PersonDataViewModel
             {
-                Person = person,
-                Emails = emails
+                Person = QueryService.Execute(new GetPersonQuery(id)),
+                Emails = await QueryService.ExecuteAsync(new GetPersonEmailsQuery(id))
             };
 
             return View(viewModel);
@@ -37,10 +35,26 @@ namespace PersEmails.Controllers
             return View(new EditPersonViewModel());
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var person = QueryService.Execute(new GetPersonQuery(id));
+            if (person == null)
+                return Error("Person not found.");
+
+            return View(new EditPersonViewModel
+            {
+                Id = person.Id,
+                Name = person.Name,
+                Surname = person.Surname,
+                Description = person.Description
+            });
+        }
+
         [HttpPost]
         public async Task<IActionResult> SavePerson(PersonDto person)
         {
-            int result = 0;
+            int result;
             if (person.Id == 0)
             {
                 var command = CommandService.GetCommand<AddPersonCommand>();
@@ -53,7 +67,6 @@ namespace PersEmails.Controllers
                 command.Person = person;
                 result = await CommandService.ExecuteAsync(command);
             }
-
             if (result > 0)
             {
                 return RedirectToAction("Index");
@@ -63,27 +76,9 @@ namespace PersEmails.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var person = QueryService.Execute(new GetPersonQuery(id));
-            if(person != null)
-            {
-                return View(new EditPersonViewModel {
-                    Id = person.Id,
-                    Name = person.Name,
-                    Surname = person.Surname,
-                    Description = person.Description
-                });
-            }
-
-            return Error("Person not found.");
-        }
-
-        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await CommandService.ExecuteAsync(new DeletePersonCommand(id));
-
             if (result > 0)
             {
                 return RedirectToAction("Index");

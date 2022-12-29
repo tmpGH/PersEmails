@@ -1,4 +1,4 @@
-﻿namespace PersEmails.Application.Persons
+﻿namespace PersEmails.Application.Persons.Queries
 {
     public class PersonWithEmailAddressDto
     {

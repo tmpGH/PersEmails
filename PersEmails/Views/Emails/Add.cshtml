@@ -4,8 +4,7 @@
 }
 @model EmailDataViewModel
 
-
-<h2>Add new email for @Html.DisplayFor(model => model.Person.Name) @Html.DisplayFor(model => model.Person.Surname)</h2>
+<h2>Add new email for @Html.DisplayFor(model => model.PersonName) @Html.DisplayFor(model => model.PersonSurname)</h2>
 
 <form asp-controller="Emails" method="post">
 

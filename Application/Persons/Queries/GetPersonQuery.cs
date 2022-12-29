@@ -4,7 +4,7 @@ using System.Data;
 
 namespace PersEmails.Application.Persons.Queries
 {
-    public class GetPersonQuery : IQuery<PersonWithEmailAddressDto>
+    public class GetPersonQuery : IQuery<PersonDto>
     {
         private int personId;
 
@@ -13,7 +13,7 @@ namespace PersEmails.Application.Persons.Queries
             this.personId = personId;
         }
 
-        public PersonWithEmailAddressDto Execute(IAppContext context)
+        public PersonDto Execute(IAppContext context)
         {
             var person = (
                 from p in context.Persons
@@ -24,9 +24,9 @@ namespace PersEmails.Application.Persons.Queries
             return person;
         }
 
-        private static PersonWithEmailAddressDto MapToDto(Person person)
+        private static PersonDto MapToDto(Person person)
         {
-            return new PersonWithEmailAddressDto
+            return new PersonDto
             {
                 Id = person.Id,
                 Name = person.Name,

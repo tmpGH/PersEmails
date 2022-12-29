@@ -1,4 +1,4 @@
-﻿namespace PersEmails.Application.Persons.Commands
+﻿namespace PersEmails.Application.Persons
 {
     public class PersonDto
     {

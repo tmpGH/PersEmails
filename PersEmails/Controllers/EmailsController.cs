@@ -4,7 +4,6 @@ using PersEmails.Application.Emails.Commands;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.Application.Emails;
 using PersEmails.ViewModels;
-using PersEmails.Domain.Entities;
 
 namespace PersEmails.Controllers
 {
@@ -22,15 +21,15 @@ namespace PersEmails.Controllers
         public IActionResult Add(int personId)
         {
             var person = QueryService.Execute(new GetPersonQuery(personId));
-            if(person != null)
-            {
-                return View( new EmailDataViewModel {
-                        Email = new EmailDto { PersonId = person.Id },
-                        Person = person
-                });
-            }
+            if(person == null)
+                return Error("Person not found.");
 
-            return Error("Person not found.");
+            return View(new EmailDataViewModel
+            {
+                Email = new EmailDto { PersonId = person.Id },
+                PersonName = person.Name,
+                PersonSurname = person.Surname
+            });
         }
 
         [HttpPost]
