@@ -3,7 +3,6 @@ using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
 using PersEmails.ViewModels;
-using PersEmails.Application.Persons;
 
 namespace PersEmails.Controllers
 {
@@ -22,8 +21,8 @@ namespace PersEmails.Controllers
         {
             var viewModel = new PersonDataViewModel
             {
-                Person = QueryService.Execute(new GetPersonQuery(id)),
-                Emails = await QueryService.ExecuteAsync(new GetPersonEmailsQuery(id))
+                Person = QueryService.Execute(new GetPersonQuery { Id = id }),
+                Emails = await QueryService.ExecuteAsync(new GetPersonEmailsQuery { Id = id })
             };
 
             return View(viewModel);
@@ -38,7 +37,7 @@ namespace PersEmails.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var person = QueryService.Execute(new GetPersonQuery(id));
+            var person = QueryService.Execute(new GetPersonQuery { Id = id });
             if (person == null)
                 return Error("Person not found.");
 
@@ -52,21 +51,23 @@ namespace PersEmails.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SavePerson(PersonDto person)
+        public async Task<IActionResult> SavePerson(EditPersonViewModel person)
         {
-            int result;
-            if (person.Id == 0)
-            {
-                var command = CommandService.GetCommand<AddPersonCommand>();
-                command.Person = person;
-                result = CommandService.Execute(command);
-            }
-            else
-            {
-                var command = CommandService.GetAsyncCommand<SavePersonCommand>();
-                command.Person = person;
-                result = await CommandService.ExecuteAsync(command);
-            }
+            var result = person.Id == 0
+                ? await Task.Run(() => CommandService.Execute(new AddPersonCommand
+                    {
+                        Name = person.Name,
+                        Surname = person.Surname,
+                        Description = person.Description
+                    }))
+                : await CommandService.ExecuteAsync(new SavePersonCommand
+                    {
+                        Id = person.Id,
+                        Name = person.Name,
+                        Surname = person.Surname,
+                        Description = person.Description
+                    })
+            ;
             if (result > 0)
             {
                 return RedirectToAction("Index");
@@ -78,13 +79,13 @@ namespace PersEmails.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await CommandService.ExecuteAsync(new DeletePersonCommand(id));
+            var result = await CommandService.ExecuteAsync(new DeletePersonCommand { Id = id });
             if (result > 0)
             {
                 return RedirectToAction("Index");
             }
 
-            return Error("Person deletion failed.");
+            return Error("No person deleted.");
         }
     }
 }

@@ -6,18 +6,13 @@ namespace PersEmails.Application.Emails.Queries
 {
     public class GetPersonEmailsQuery : IQueryAsync<IList<EmailDto>>
     {
-        private int personId;
-
-        public GetPersonEmailsQuery(int personId)
-        {
-            this.personId = personId;
-        }
+        public int Id { get; set; }
 
         public async Task<IList<EmailDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var emails = await (
                 from e in context.Emails
-                where e.PersonId == personId
+                where e.PersonId == Id
                 select MapToDto(e)
             ).ToListAsync();
 

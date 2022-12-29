@@ -8,13 +8,13 @@
 
 <form asp-controller="Emails" method="post">
 
-    <input type="hidden" asp-for="Email.PersonId" /><br />
+    <input type="hidden" asp-for="PersonId" /><br />
 
-    <label asp-for="Email.EmailAddress">Enter your email address:</label>
+    <label asp-for="EmailAddress">Enter your email address:</label>
     <br />
-    <span asp-validation-for="Email.EmailAddress" style="color: red;"></span>
+    <span asp-validation-for="EmailAddress" style="color: red;"></span>
     <br />
-    <input type="email" asp-for="Email.EmailAddress" size="50" maxlength="50" />
+    <input type="email" asp-for="EmailAddress" size="50" maxlength="50" />
     <br />
     <br />
 

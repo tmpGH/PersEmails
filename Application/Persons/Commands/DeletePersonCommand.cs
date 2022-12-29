@@ -4,16 +4,11 @@ namespace PersEmails.Application.Persons.Commands
 {
     public class DeletePersonCommand : ICommandAsync
     {
-        private int personId;
-
-        public DeletePersonCommand(int personId)
-        {
-            this.personId = personId;
-        }
+        public int Id { get; set; }
 
         public async Task<int> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
-            var entity = await context.Persons.FindAsync(personId);
+            var entity = await context.Persons.FindAsync(Id);
             if (entity == null)
                 return 0;
 

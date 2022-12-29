@@ -8,11 +8,24 @@ namespace PersEmails.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            AddCommands(services);
+            AddValidators(services);
+
+            return services;
+        }
+
+        private static void AddCommands(IServiceCollection services)
+        {
             services.AddScoped<AddEmailToPersonCommand>();
             services.AddScoped<AddPersonCommand>();
             services.AddScoped<SavePersonCommand>();
+        }
 
-            return services;
+        private static void AddValidators(IServiceCollection services)
+        {
+            services.AddScoped<AddEmailToPersonCommandValidator>();
+            services.AddScoped<AddPersonCommandValidator>();
+            services.AddScoped<SavePersonCommandValidator>();
         }
     }
 }

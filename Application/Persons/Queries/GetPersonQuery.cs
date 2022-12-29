@@ -6,18 +6,13 @@ namespace PersEmails.Application.Persons.Queries
 {
     public class GetPersonQuery : IQuery<PersonDto>
     {
-        private int personId;
-
-        public GetPersonQuery(int personId)
-        {
-            this.personId = personId;
-        }
+        public int Id { get; set; }
 
         public PersonDto Execute(IAppContext context)
         {
             var person = (
                 from p in context.Persons
-                where p.Id == personId
+                where p.Id == Id
                 select MapToDto(p)
             ).FirstOrDefault();
 

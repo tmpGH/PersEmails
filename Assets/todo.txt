@@ -1,6 +1,6 @@
-strona błędu dla wersji produkcyjnej
+dodac walidacje do CommandService
 
-wydzielić walidatory encji
+strona błędu dla wersji produkcyjnej
 
 unit testy
 

@@ -2,7 +2,6 @@
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Emails.Commands;
 using PersEmails.Application.Persons.Queries;
-using PersEmails.Application.Emails;
 using PersEmails.ViewModels;
 
 namespace PersEmails.Controllers
@@ -18,26 +17,28 @@ namespace PersEmails.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add(int personId)
+        public IActionResult Add(int personId) 
         {
-            var person = QueryService.Execute(new GetPersonQuery(personId));
+            var person = QueryService.Execute(new GetPersonQuery { Id = personId });
             if(person == null)
                 return Error("Person not found.");
 
             return View(new EmailDataViewModel
             {
-                Email = new EmailDto { PersonId = person.Id },
+                PersonId = person.Id,
                 PersonName = person.Name,
                 PersonSurname = person.Surname
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveEmail(EmailDto email)
+        public async Task<IActionResult> SaveEmail(EmailDataViewModel email)
         {
-            var command = CommandService.GetAsyncCommand<AddEmailToPersonCommand>();
-            command.Email = email;
-            var result = await CommandService.ExecuteAsync(command);
+            var result = CommandService.Execute(new AddEmailToPersonCommand
+            {
+                EmailAddress = email.EmailAddress,
+                PersonId = email.PersonId
+            });
             if (result == 1)
             {
                 return RedirectToAction("Person", "Persons", new { id = email.PersonId });
@@ -49,13 +50,13 @@ namespace PersEmails.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var result = CommandService.Execute(new DeleteEmailCommand(id));
+            var result = CommandService.Execute(new DeleteEmailCommand { Id = id });
             if(result == 1)
             {
                 return Redirect(Request.Headers["Referer"].ToString());
             }
 
-            return Error("Email deletion failed.");
+            return Error("No email deleted.");
         }
     }
 }

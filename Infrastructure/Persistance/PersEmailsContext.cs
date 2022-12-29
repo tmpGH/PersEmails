@@ -11,12 +11,6 @@ namespace PersEmails.Infrastructure.Persistance
 
         public PersEmailsContext(DbContextOptions<PersEmailsContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            // string connectionString = @"Data Source=PC\SQLEXPRESS;Initial Catalog=PersEmails;Integrated Security=True";
-            // options.UseSqlServer(connectionString);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
