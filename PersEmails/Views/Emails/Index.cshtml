@@ -1,28 +1,28 @@
 ﻿@using PersEmails.ViewModels.Emails;
+@model EmailListViewModel
 @{
     ViewData["Title"] = "List of emails";
 }
-@model EmailListViewModel
 
 <h2>All emails</h2>
 
-<table>
+<table class="col-7 table">
     <tr style="background-color:lightgray">
-        <th> email </th>
-        <th> /&nbsp;name </th>
-        <th> /&nbsp;surname </th>
+        <th class="col-5"> email </th>
+        <th class="col-2"> name </th>
+        <th class="col-3"> surname </th>
 
-        <th> </th>
+        <th class="col-2"> </th>
     </tr>
 
     @foreach (var item in Model.Emails)
     {
         <tr>
-            <td> @Html.DisplayFor(i => item.EmailAddress) </td>
-            <td style="background-color:whitesmoke"> @Html.DisplayFor(i => item.Name) </td>
-            <td style="background-color:whitesmoke"> @Html.DisplayFor(i => item.Surname) </td>
+            <td class="col-5" style="background-color:whitesmoke"> @Html.DisplayFor(i => item.EmailAddress) </td>
+            <td class="col-2"> @Html.DisplayFor(i => item.Name) </td>
+            <td class="col-3" style="background-color:whitesmoke"> @Html.DisplayFor(i => item.Surname) </td>
 
-            <td> <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> </td>
+            <td class="col-2 text-center"> <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a> </td>
         </tr>
     }
 

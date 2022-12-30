@@ -8,7 +8,7 @@ namespace PersEmails.Controllers
 {
     public class PersonsController : BaseController
     {
-        private int pageSize = 8;
+        private int pageSize = 6;
 
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] int? page)

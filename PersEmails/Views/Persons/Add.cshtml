@@ -1,8 +1,8 @@
 ﻿@using PersEmails.ViewModels.Persons;
+@model EditPersonViewModel
 @{
     ViewData["Title"] = "Add person";
 }
-@model EditPersonViewModel
 
 <h2>Add new person</h2>
 
@@ -11,25 +11,19 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <label asp-for="Name">Name:</label>
-    <br />
+    <input class="form-control" type="text" asp-for="Name" size="50" maxlength="50" />
     <span asp-validation-for="Name" style="color: red;"></span>
     <br />
-    <input type="text" asp-for="Name" size="50" maxlength="50" />
-    <br />
     <label asp-for="Surname">Surname:</label>
-    <br />
+    <input class="form-control" type="text" asp-for="Surname" size="50" maxlength="50" />
     <span asp-validation-for="Surname" style="color: red;"></span>
     <br />
-    <input type="text" asp-for="Surname" size="50" maxlength="50" />
-    <br />
     <label asp-for="Description">Description:</label>
-    <br />
-    <textarea asp-for="Description" cols="50" rows="10"></textarea>
-    <br />
+    <textarea class="form-control" asp-for="Description" cols="50" rows="10"></textarea>
     <br />
 
-    <button type="submit"> Save person </button>
-    <button type="button" onclick="history.back()"> Cancel </button>
+    <button class="btn btn-secondary" type="submit"> Save person </button>
+    <button class="btn btn-outline-secondary" type="button" onclick="history.back()"> Cancel </button>
 
 </form>
 

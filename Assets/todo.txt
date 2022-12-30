@@ -1,7 +1,5 @@
-sprawdzić Take i Skip w queries z listami
 
 unit testy
 
 ----------
 
-stylowanie widoków

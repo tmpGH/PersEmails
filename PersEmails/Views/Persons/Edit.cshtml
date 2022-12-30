@@ -1,34 +1,28 @@
 ﻿@using PersEmails.ViewModels.Persons;
+@model EditPersonViewModel
 @{
     ViewData["Title"] = "Edit perrson data";
 }
-@model EditPersonViewModel
 
 <h2>Edit details of @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
 
 <form asp-controller="Persons" asp-action="SavePerson" method="post">
     
     <label asp-for="Name">Name:</label>
-    <br />
+    <input class="form-control" type="text" asp-for="Name" size="50" maxlength="50" />
     <span asp-validation-for="Name" style="color: red;"></span>
     <br />
-    <input type="text" asp-for="Name" size="50" maxlength="50" />
-    <br />
     <label asp-for="Surname">Surname:</label>
-    <br />
+    <input class="form-control" type="text" asp-for="Surname" size="50" maxlength="50" />
     <span asp-validation-for="Surname" style="color: red;"></span>
     <br />
-    <input type="text" asp-for="Surname" size="50" maxlength="50" />
-    <br />
     <label asp-for="Description">Description:</label>
-    <br />
-    <textarea asp-for="Description" cols="50" rows="10"></textarea>
-    <br />
+    <textarea class="form-control" asp-for="Description" cols="50" rows="10"></textarea>
     <input type="hidden" asp-for="Id" />
     <br />
 
-    <button type="submit"> Save person </button>
-    <button type="button" onclick="history.back()"> Cancel </button>
+    <button class="btn btn-secondary" type="submit"> Save person </button>
+    <button class="btn btn-outline-secondary" type="button" onclick="history.back()"> Cancel </button>
 
 </form>
 

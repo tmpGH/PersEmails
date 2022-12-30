@@ -1,8 +1,8 @@
 ﻿@using PersEmails.ViewModels.Emails;
+@model EmailDataViewModel
 @{
     ViewData["Title"] = "Add email";
 }
-@model EmailDataViewModel
 
 <h2>Add new email for @Html.DisplayFor(model => model.PersonName) @Html.DisplayFor(model => model.PersonSurname)</h2>
 
@@ -11,15 +11,12 @@
     <input type="hidden" asp-for="PersonId" /><br />
 
     <label asp-for="EmailAddress">Enter your email address:</label>
-    <br />
+    <input class="form-control" type="email" asp-for="EmailAddress" size="50" maxlength="50" />
     <span asp-validation-for="EmailAddress" style="color: red;"></span>
     <br />
-    <input type="email" asp-for="EmailAddress" size="50" maxlength="50" />
-    <br />
-    <br />
 
-    <button type="submit" formaction="SaveEmail"> Save email </button>
-    <button type="button" onclick="history.back()"> Cancel </button>
+    <button class="btn btn-secondary" type="submit" formaction="SaveEmail"> Save email </button>
+    <button class="btn btn-outline-secondary" type="button" onclick="history.back()"> Cancel </button>
 
 </form>
 
