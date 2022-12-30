@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersEmails.Infrastructure.Interfaces;
 using PersEmails.ViewModels;
+using System.Diagnostics;
 
 namespace PersEmails.Controllers
 {
@@ -12,11 +13,11 @@ namespace PersEmails.Controllers
         private ICommandService _commandService;
         protected ICommandService CommandService => _commandService ??= HttpContext.RequestServices.GetService<ICommandService>();
     
-        protected IActionResult Error(string errorMessage)
+        public IActionResult Error(string errorMessage)
         {
             var viewModel = new ErrorViewModel
             {
-                RequestId = HttpContext.TraceIdentifier,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
                 Error = errorMessage
             };
 
