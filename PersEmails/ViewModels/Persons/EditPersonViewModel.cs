@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PersEmails.ViewModels
+namespace PersEmails.ViewModels.Persons
 {
     public class EditPersonViewModel
     {

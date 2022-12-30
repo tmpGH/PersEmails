@@ -1,12 +1,10 @@
-﻿@using PersEmails.Application.Emails.Queries;
+﻿@using PersEmails.ViewModels.Emails;
 @{
     ViewData["Title"] = "List of emails";
 }
-@model IList<EmailWithNamesDto>
+@model EmailListViewModel
 
 <h2>All emails</h2>
-
-<p>Under construction</p>
 
 <table>
     <tr style="background-color:lightgray">
@@ -17,7 +15,7 @@
         <th> </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Emails)
     {
         <tr>
             <td> @Html.DisplayFor(i => item.EmailAddress) </td>
@@ -29,3 +27,5 @@
     }
 
 </table>
+
+<partial name="../Shared/_Paginator.cshtml" model="@Model" />

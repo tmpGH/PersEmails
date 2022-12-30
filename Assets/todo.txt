@@ -1,8 +1,7 @@
+sprawdzić Take i Skip w queries z listami
 
 unit testy
 
 ----------
-
-paginacja na widokach z listą osób i listą emaili
 
 stylowanie widoków

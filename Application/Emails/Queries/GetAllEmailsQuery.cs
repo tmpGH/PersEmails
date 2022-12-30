@@ -5,6 +5,9 @@ namespace PersEmails.Application.Emails.Queries
 {
     public class GetAllEmailsQuery : IQuery<IList<EmailWithNamesDto>>
     {
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+
         public IList<EmailWithNamesDto> Execute(IAppContext context)
         {
             var emails = (
@@ -13,7 +16,9 @@ namespace PersEmails.Application.Emails.Queries
                 where e.PersonId == p.Id
                 orderby e.EmailAddress
                 select MapToDto(e, p)
-            ).ToList();
+            ).Skip((PageNumber-1)*PageSize)
+            .Take(PageSize)
+            .ToList();
 
             return emails;
         }

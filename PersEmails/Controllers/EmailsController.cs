@@ -2,18 +2,27 @@
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Emails.Commands;
 using PersEmails.Application.Persons.Queries;
-using PersEmails.ViewModels;
+using PersEmails.ViewModels.Emails;
 
 namespace PersEmails.Controllers
 {
     public class EmailsController : BaseController
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            var emails = QueryService.Execute(new GetAllEmailsQuery());
+        private int pageSize = 10;
 
-            return View(emails);
+        [HttpGet]
+        public IActionResult Index([FromQuery] int? page)
+        {
+            int pageNumber = page ?? 1;
+            var emails = QueryService.Execute(new GetAllEmailsQuery { PageNumber = pageNumber, PageSize = pageSize });
+            var viewModel = new EmailListViewModel
+            {
+                Emails = emails,
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+                ItemsCount = emails.Count
+            };
+            return View(viewModel);
         }
 
         [HttpGet]

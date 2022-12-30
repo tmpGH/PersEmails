@@ -1,0 +1,17 @@
+﻿@model PageableViewModel
+
+@if(Model.PageNumber > 1)
+{
+    <a asp-controller="@ViewContext.RouteData.Values["controller"].ToString()"
+        asp-action="@ViewContext.RouteData.Values["action"].ToString()"
+   asp-route-page="@(Model.PageNumber - 1)"> &lt;Prev  </a>
+}
+
+Page @Model.PageNumber
+
+@if (Model.ItemsCount == Model.PageSize)
+{
+    <a asp-controller="@ViewContext.RouteData.Values["controller"].ToString()"
+        asp-action="@ViewContext.RouteData.Values["action"].ToString()"
+   asp-route-page="@(Model.PageNumber + 1)"> Next&gt; </a>
+}

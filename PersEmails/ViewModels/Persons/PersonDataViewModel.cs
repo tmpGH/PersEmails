@@ -1,7 +1,7 @@
 ﻿using PersEmails.Application.Emails;
 using PersEmails.Application.Persons;
 
-namespace PersEmails.ViewModels
+namespace PersEmails.ViewModels.Persons
 {
     public class PersonDataViewModel
     {

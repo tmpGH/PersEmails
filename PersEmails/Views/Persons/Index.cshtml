@@ -1,8 +1,8 @@
-﻿@using PersEmails.Application.Persons.Queries;
+﻿@using PersEmails.ViewModels.Persons;
 @{
     ViewData["Title"] = "List of persons";
 }
-@model IList<PersonWithEmailAddressDto>
+@model PersonListViewModel
 
 <h2>Persons</h2>
 
@@ -18,7 +18,7 @@
         <th> </th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model.Persons) {
         <tr>
             <td style="background-color:whitesmoke"> @Html.DisplayFor(i => item.Surname) </td>
             <td style="background-color:whitesmoke"> @Html.DisplayFor(i => item.Name) </td>
@@ -32,6 +32,9 @@
     }
 </table>
 
+<partial name="../Shared/_Paginator.cshtml" model="@Model" />
+
+<br />
 <br />
 <div style="width:100px; background-color:lightgray; text-align:center">
     <a asp-controller="Persons" asp-action="Add">Add person</a>

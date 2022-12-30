@@ -7,6 +7,9 @@ namespace PersEmails.Application.Persons.Queries
 {
     public class GetPersonsQuery : IQueryAsync<IList<PersonWithEmailAddressDto>>
     {
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+
         public async Task<IList<PersonWithEmailAddressDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var persons = await (
@@ -16,7 +19,9 @@ namespace PersEmails.Application.Persons.Queries
                                         .DefaultIfEmpty()
                 orderby p.Surname, p.Name
                 select MapToDto(p, e.EmailAddress)
-            ).ToListAsync();
+            ).Skip((PageNumber - 1) * PageSize)
+            .Take(PageSize)
+            .ToListAsync();
 
             return persons;
         }

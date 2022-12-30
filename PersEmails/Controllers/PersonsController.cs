@@ -2,18 +2,28 @@
 using PersEmails.Application.Persons.Commands;
 using PersEmails.Application.Emails.Queries;
 using PersEmails.Application.Persons.Queries;
-using PersEmails.ViewModels;
+using PersEmails.ViewModels.Persons;
 
 namespace PersEmails.Controllers
 {
     public class PersonsController : BaseController
     {
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var persons = await QueryService.ExecuteAsync(new GetPersonsQuery());
+        private int pageSize = 8;
 
-            return View(persons);
+        [HttpGet]
+        public async Task<IActionResult> Index([FromQuery] int? page)
+        {
+            int pageNumber = page ?? 1;
+            var persons = await QueryService.ExecuteAsync(new GetPersonsQuery { PageNumber = pageNumber, PageSize = pageSize });
+            var viewModel = new PersonListViewModel
+            {
+                Persons = persons,
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+                ItemsCount = persons.Count
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
