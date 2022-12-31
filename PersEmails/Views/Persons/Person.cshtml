@@ -24,4 +24,4 @@
 </div>
 
 <a class="btn btn-secondary" asp-controller="Emails" asp-action="Add" asp-route-personId="@Model.Person.Id">Add email</a>
-<button class="btn btn-outline-secondary" type="button" onclick="history.back()"> Cancel </button>
+<a class="btn btn-outline-secondary" asp-controller="Persons" asp-action="Index">Cancel</a>

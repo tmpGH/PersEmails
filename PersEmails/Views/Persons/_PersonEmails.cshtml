@@ -5,8 +5,10 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td class="col-6">@Html.DisplayFor(i => item.EmailAddress) </td>
-        <td class="col-4 text-start"> <a class="btn btn-outline-danger" asp-controller="Emails" asp-action="Delete" asp-route-id="@item.Id">Delete email</a> </td>
+        <td class="col-6">@Html.DisplayFor(i => item.EmailAddress)</td>
+        <td class="col-4 text-start">
+            <a class="btn btn-outline-danger" asp-controller="Emails" asp-action="Delete" asp-route-id="@item.Id">Delete email</a>
+        </td>
     </tr>
 }
 </table>

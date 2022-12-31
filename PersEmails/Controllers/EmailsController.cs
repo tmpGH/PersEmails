@@ -14,7 +14,7 @@ namespace PersEmails.Controllers
         public IActionResult Index([FromQuery] int? page)
         {
             int pageNumber = page ?? 1;
-            var emails = QueryService.Execute(new GetAllEmailsQuery { PageNumber = pageNumber, PageSize = pageSize });
+            var emails = QueryService.Execute(new GetEmailsQuery { PageNumber = pageNumber, PageSize = pageSize });
             var viewModel = new EmailListViewModel
             {
                 Emails = emails,

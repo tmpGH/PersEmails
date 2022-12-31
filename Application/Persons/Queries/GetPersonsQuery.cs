@@ -5,11 +5,8 @@ using System.Data;
 
 namespace PersEmails.Application.Persons.Queries
 {
-    public class GetPersonsQuery : IQueryAsync<IList<PersonWithEmailAddressDto>>
+    public class GetPersonsQuery : PageableQuery, IQueryAsync<IList<PersonWithEmailAddressDto>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
         public async Task<IList<PersonWithEmailAddressDto>> ExecuteAsync(IAppContext context, CancellationToken cancellationToken)
         {
             var persons = await (

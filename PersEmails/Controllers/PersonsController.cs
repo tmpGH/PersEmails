@@ -78,7 +78,7 @@ namespace PersEmails.Controllers
                         Description = person.Description
                     })
             ;
-            if (result > 0)
+            if (result == 1)
             {
                 return RedirectToAction("Index");
             }
