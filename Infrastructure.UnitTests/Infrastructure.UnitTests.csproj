@@ -17,10 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Emails\Commands\" />
-    <Folder Include="Emails\Queries\" />
-    <Folder Include="Persons\Commands\" />
-    <Folder Include="Persons\Queries\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

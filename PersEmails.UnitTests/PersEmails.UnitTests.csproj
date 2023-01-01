@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
@@ -17,10 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Emails\Commands\" />
-    <Folder Include="Emails\Queries\" />
-    <Folder Include="Persons\Commands\" />
-    <Folder Include="Persons\Queries\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PersEmails\PersEmails.csproj" />
   </ItemGroup>
 
 </Project>
