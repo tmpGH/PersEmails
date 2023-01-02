@@ -8,17 +8,17 @@ namespace PersEmails.Controllers
 {
     public class PersonsController : BaseController
     {
-        private int pageSize = 6;
+        private int _pageSize = 6;
 
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] int? page)
         {
             int pageNumber = page ?? 1;
-            var persons = await QueryService.ExecuteAsync(new GetPersonsQuery { PageNumber = pageNumber, PageSize = pageSize });
+            var persons = await QueryService.ExecuteAsync(new GetPersonsQuery { PageNumber = pageNumber, PageSize = _pageSize });
             var viewModel = new PersonListViewModel
             {
                 Persons = persons,
-                PageSize = pageSize,
+                PageSize = _pageSize,
                 PageNumber = pageNumber,
                 ItemsCount = persons.Count
             };

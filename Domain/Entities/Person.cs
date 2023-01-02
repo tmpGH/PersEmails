@@ -6,7 +6,7 @@ namespace PersEmails.Domain.Entities
     {
         public Person()
         {
-            this.Emails = new List<Email>();
+            Emails = new List<Email>();
         }
 
         public int Id { get; set; }

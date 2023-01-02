@@ -8,17 +8,17 @@ namespace PersEmails.Controllers
 {
     public class EmailsController : BaseController
     {
-        private int pageSize = 10;
+        private int _pageSize = 10;
 
         [HttpGet]
         public IActionResult Index([FromQuery] int? page)
         {
             int pageNumber = page ?? 1;
-            var emails = QueryService.Execute(new GetEmailsQuery { PageNumber = pageNumber, PageSize = pageSize });
+            var emails = QueryService.Execute(new GetEmailsQuery { PageNumber = pageNumber, PageSize = _pageSize });
             var viewModel = new EmailListViewModel
             {
                 Emails = emails,
-                PageSize = pageSize,
+                PageSize = _pageSize,
                 PageNumber = pageNumber,
                 ItemsCount = emails.Count
             };
