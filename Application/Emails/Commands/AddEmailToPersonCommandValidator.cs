@@ -17,13 +17,13 @@ namespace PersEmails.Application.Emails.Commands
 
         public bool IsValid(AddEmailToPersonCommand command)
         {
-            command.EmailAddress = command.EmailAddress.Trim();
             if (string.IsNullOrWhiteSpace(command.EmailAddress))
             {
                 logger.Log(LogLevel.Error, "Empty field: EmailAddress");
                 return false;
             }
 
+            command.EmailAddress = command.EmailAddress.Trim();
             try
             {
                 MailAddress mail = new MailAddress(command.EmailAddress);

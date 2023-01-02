@@ -1,7 +1,3 @@
 ﻿
-unit testy
-
-usunąć niepotrzebne fejki z unit testów
-
 ----------
 
