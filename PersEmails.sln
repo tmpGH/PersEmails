@@ -15,15 +15,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{A6390E
 	ProjectSection(SolutionItems) = preProject
 		Assets\PersEmails.bak = Assets\PersEmails.bak
 		Assets\todo.txt = Assets\todo.txt
+		Assets\Zadanie.PNG = Assets\Zadanie.PNG
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A06A0881-EAF5-4323-8D8A-C477D2FE0303}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "Application.UnitTests\Application.UnitTests.csproj", "{4460D339-B919-4658-B5DD-862B0C25324C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersEmails.UnitTests", "PersEmails.UnitTests\PersEmails.UnitTests.csproj", "{D99C0682-54DC-43D2-98FD-E918B5613FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersEmails.UnitTests", "PersEmails.UnitTests\PersEmails.UnitTests.csproj", "{D99C0682-54DC-43D2-98FD-E918B5613FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.UnitTests", "Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{F4D2883E-841E-45D1-901C-BE6F50BB8A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.UnitTests", "Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{F4D2883E-841E-45D1-901C-BE6F50BB8A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

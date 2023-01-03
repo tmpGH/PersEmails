@@ -1,3 +1,5 @@
-﻿
+﻿spróbować zastąpić niektóre fejki
+	obiektami tworzonymi przy pomocy Moq
+
 ----------
 
