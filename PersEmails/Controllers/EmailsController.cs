@@ -41,7 +41,7 @@ namespace PersEmails.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveEmail(EmailDataViewModel email)
+        public IActionResult SaveEmail(EmailDataViewModel email)
         {
             var result = CommandService.Execute(new AddEmailToPersonCommand
             {

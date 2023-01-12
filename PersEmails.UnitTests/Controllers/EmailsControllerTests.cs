@@ -90,7 +90,7 @@ namespace PersEmails.UnitTests.Controllers
         }
 
         [Test]
-        public async Task SaveEmail_GetsWrongData_ReturnsErrorViewModel()
+        public void SaveEmail_GetsWrongData_ReturnsErrorViewModel()
         {
             var controller = new EmailsController();
             controller.ControllerContext.HttpContext = _context;
@@ -102,12 +102,12 @@ namespace PersEmails.UnitTests.Controllers
 
             //Assert
             Assert.IsNotNull(view);
-            var viewResult = await view as ViewResult;
+            var viewResult = view as ViewResult;
             Assert.That(viewResult.Model, Is.TypeOf<ErrorViewModel>());
         }
 
         [Test]
-        public async Task SaveEmail_GetsRightData_ReturnsRedirectToActionResult()
+        public void SaveEmail_GetsRightData_ReturnsRedirectToActionResult()
         {
             var controller = new EmailsController();
             controller.ControllerContext.HttpContext = _context;
@@ -115,7 +115,7 @@ namespace PersEmails.UnitTests.Controllers
             var viewModel = new EmailDataViewModel();
 
             //Act
-            var view = await controller.SaveEmail(viewModel);
+            var view = controller.SaveEmail(viewModel);
 
             //Assert
             Assert.IsNotNull(view);
