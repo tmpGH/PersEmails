@@ -12,7 +12,7 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         var app = builder.Build();
 
@@ -20,7 +20,7 @@ internal class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            app.UseMigrationsEndPoint();
+            //app.UseMigrationsEndPoint();
         }
         else
         {
